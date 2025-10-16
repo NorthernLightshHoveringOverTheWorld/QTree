@@ -44,6 +44,25 @@ public class QuadTree<T> implements Serializable {
         return found;
     }
 
+    public List<Point<T>> queryCircle(Circle circle) {
+        List<Point<T>> result = new ArrayList<>();
+        queryCircleNode(root, circle, result);
+        return result;
+    }
+
+
+    private void queryCircleNode(Node node, Circle circle, List<Point<T>> result) {
+        if (!node.boundary.intersects(new Rect(circle.x, circle.y, circle.radius, circle.radius))) return;
+        for (Point<T> p : node.points) {
+            if (circle.contains(p)) result.add(p);
+        }
+        if (!node.divided) return;
+        queryCircleNode(node.nw, circle, result);
+        queryCircleNode(node.ne, circle, result);
+        queryCircleNode(node.sw, circle, result);
+        queryCircleNode(node.se, circle, result);
+    }
+
     public List<Point<T>> nearest(double x, double y, int k) {
         if (k <= 0) throw new IllegalArgumentException("k must be > 0");
         double maxDim = Math.max(root.boundary.halfWidth, root.boundary.halfHeight);

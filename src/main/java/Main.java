@@ -33,6 +33,13 @@ public class Main {
             System.out.println("Найдена точка: " + p);
         }
 
+        System.out.println("\n=== Поиск точек внутри круга радиусом 12 вокруг (0,0) ===");
+        Circle circle = new Circle(0, 0, 12);
+        List<Point<String>> inCircle = qt.queryCircle(circle);
+        for (Point<String> p : inCircle) {
+            System.out.println("Внутри круга: " + p);
+        }
+
 
         System.out.println("\n=== Поиск 3 ближайших точек к (0,0) ===");
         List<Point<String>> nearest = qt.nearest(0, 0, 3);
