@@ -1,3 +1,5 @@
+package com.QTree;
+
 import java.io.Serializable;
 public class Rect implements Serializable {
     private static final long serialVersionUID = 1L;

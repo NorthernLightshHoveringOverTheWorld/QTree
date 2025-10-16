@@ -1,8 +1,5 @@
-import java.QTree.Circle;
+package com.QTree;
 import java.util.List;
-
-
-
 public class Main {
     public static void main(String[] args) {
         QuadTree<String> qt = new QuadTree<>(new Rect(0, 0, 50, 50), 4);
