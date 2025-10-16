@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Основной класс QuadTree для размещения объектов с координатами (x, y). */
+
 public class QuadTree<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private final Node root;

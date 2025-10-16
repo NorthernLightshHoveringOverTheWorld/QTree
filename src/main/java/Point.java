@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-/** Обертка для точки с координатами и значением */
+
 public class Point<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     public final double x;

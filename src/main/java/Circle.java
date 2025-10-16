@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Класс для круга — область поиска по радиусу
- */
 public class Circle {
     public final double x;
     public final double y;

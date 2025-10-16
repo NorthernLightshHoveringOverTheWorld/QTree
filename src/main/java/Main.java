@@ -1,12 +1,8 @@
 import java.util.List;
 
 
-/**
- * Демонстрация и тестирование Quadtree с выводом содержимого
- */
+
 public class Main {
-
-
     public static void main(String[] args) {
         QuadTree<String> qt = new QuadTree<>(new Rect(0, 0, 50, 50), 4);
 
