@@ -1,10 +1,7 @@
 package com.QTree;
 
-import java.io.Serializable;
 
-
-public class Point<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Point<T>  {
     public final double x;
     public final double y;
     public final T value;

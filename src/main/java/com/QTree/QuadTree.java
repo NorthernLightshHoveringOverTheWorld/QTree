@@ -1,13 +1,13 @@
 package com.QTree;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public class QuadTree<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class QuadTree<T>  {
+
     private final Node root;
     private int size = 0;
 
@@ -84,7 +84,7 @@ public class QuadTree<T> implements Serializable {
         double dx = ax - bx, dy = ay - by; return dx * dx + dy * dy;
     }
 
-    private class Node implements Serializable {
+    private class Node  {
         final Rect boundary;
         final int capacity;
         final List<Point<T>> points;
