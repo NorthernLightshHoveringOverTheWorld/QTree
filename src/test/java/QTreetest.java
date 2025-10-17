@@ -18,9 +18,6 @@ import java.util.List;
 
 
 
-// ---------- Nearest ----------
-
-
     @Test
     void testNearestPoints() {
         List<Point<String>> nearest = qt.nearest(0, 0, 3);
@@ -44,7 +41,6 @@ import java.util.List;
     }
 
 
-// ---------- Rect ----------
 
 
     @Test
@@ -66,8 +62,6 @@ import java.util.List;
         Assertions.assertFalse(r1.intersects(r3), "r1 и r3 не должны пересекаться");
     }
 
-
-// ---------- Circle ----------
 
 
     @Test
@@ -106,6 +100,78 @@ import java.util.List;
          Circle largeCircle = new Circle(0, 0, 100);
          List<Point<String>> all = qt.queryCircle(largeCircle);
          Assertions.assertEquals(5, all.size(), "Большой круг должен находить все точки");
+     }
+
+     @Test
+     void testInsertAndSize() {
+         Assertions.assertEquals(5, qt.size(), "Размер дерева должен быть 5 после вставок");
+         boolean result = qt.insert("F", 60, 60);
+         Assertions.assertFalse(result, "Точка вне границ не должна вставляться");
+         qt.insert("G", 20, 20);
+         Assertions.assertEquals(6, qt.size(), "Размер должен увеличиться после добавления новой точки");
+     }
+
+
+     @Test
+     void testDuplicateInsert() {
+         boolean inserted = qt.insert("E", 0, 0);
+         Assertions.assertTrue(inserted, "Можно вставить дубликат, если координаты те же");
+         Assertions.assertTrue(qt.size() >= 5, "Размер не должен уменьшиться после вставки дубликата");
+     }
+
+
+     @Test
+     void testRemoveExistingPoint() {
+         boolean removed = qt.remove("A", -10, -10);
+         Assertions.assertTrue(removed, "Точка A должна быть удалена");
+         Assertions.assertEquals(4, qt.size(), "После удаления A должно остаться 4 точки");
+     }
+
+
+     @Test
+     void testRemoveNonExistingPoint() {
+         boolean removed = qt.remove("Z", 100, 100);
+         Assertions.assertFalse(removed, "Удаление несуществующей точки должно вернуть false");
+     }
+
+
+     @Test
+     void testClear() {
+         qt.clear();
+         Assertions.assertEquals(0, qt.size(), "После clear дерево должно быть пустым");
+         Assertions.assertTrue(qt.queryRange(new Rect(0, 0, 50, 50)).isEmpty(), "После clear дерево пустое");
+     }
+
+
+     @Test
+     void testSizeOnEmptyTree() {
+         QuadTree<String> empty = new QuadTree<>(new Rect(0, 0, 10, 10), 2);
+         Assertions.assertEquals(0, empty.size(), "Пустое дерево должно иметь размер 0");
+     }
+
+
+
+     @Test
+     void testQueryRangeInside() {
+         Rect range = new Rect(0, 0, 15, 15);
+         List<Point<String>> found = qt.queryRange(range);
+         Assertions.assertEquals(5, found.size(), "В пределах 15x15 должно быть найдено 5 точек");
+     }
+
+
+     @Test
+     void testQueryRangeOutside() {
+         Rect range = new Rect(100, 100, 10, 10);
+         List<Point<String>> found = qt.queryRange(range);
+         Assertions.assertTrue(found.isEmpty(), "Вне области не должно быть найдено точек");
+     }
+
+
+     @Test
+     void testQueryRangePartialOverlap() {
+         Rect range = new Rect(10, 10, 20, 20);
+         List<Point<String>> found = qt.queryRange(range);
+         Assertions.assertTrue(found.stream().anyMatch(p -> p.value.equals("D")), "Точка D должна быть найдена");
      }
 }
 
